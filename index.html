@@ -32,8 +32,8 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="openqasm-live-specification">
-<h1>OpenQASM Live Specification<a class="headerlink" href="#openqasm-live-specification" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="openqasm-3-x-live-specification">
+<h1>OpenQASM 3.x Live Specification<a class="headerlink" href="#openqasm-3-x-live-specification" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
 <span id="document-intro"></span><div class="section" id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
@@ -122,7 +122,7 @@ Appendix <a class="reference external" href="#app:semantics">[app:semantics]</a
 indicating a major version M and minor version m. Version 3.0 is
 described in this document. Multiple occurrences of the version keyword
 are not permitted. The minor version number and decimal point are
-optional. If they are not present, they are assumed to be zero.</p>
+optional. If they are not present, minor version number is assumed to be zero.</p>
 </div>
 <div class="section" id="included-files">
 <h3>Included files<a class="headerlink" href="#included-files" title="Permalink to this headline">¶</a></h3>
@@ -131,7 +131,7 @@ inserted at the location of the statement.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// First non-comment is a version string</span>
 <span class="n">OPENQASM</span> <span class="mf">3.0</span><span class="p">;</span>
 
-<span class="cp">#include</span> <span class="cpf">&quot;stdgates.qasm&quot;</span><span class="c1">;</span><span class="cp"></span>
+<span class="n">include</span> <span class="s">&quot;stdgates.qasm&quot;</span><span class="p">;</span>
 
 <span class="c1">// Rest of QASM program</span>
 </pre></div>
@@ -1228,6 +1228,8 @@ of prior versions of OpenQASM.</p>
 </div>
 <span id="document-grammar/index"></span><div class="section" id="grammar">
 <h2>Grammar<a class="headerlink" href="#grammar" title="Permalink to this headline">¶</a></h2>
+<p>Grammar specification based in <a class="reference external" href="https://www.antlr.org/">ANTLR</a> parser generator</p>
+<p>[WIP]</p>
 <div class="highlight-antlr notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
