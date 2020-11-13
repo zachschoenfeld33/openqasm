@@ -145,19 +145,15 @@ inserted at the location of the statement.</p>
 percent sign, or an element from the Unicode character categories
 Lu/Ll/Lt/Lm/Lo/NI <span class="bibtex" id="id1">[noauthorUnicodeNodate]</span>.
 Continuation characters may contain numbers. Variable identifiers may
-not override a reserved identifier. All qubits are global variables.
-When qubits are declared, their state is initially undefined. Qubits
-cannot be declared within gates or subroutines. This simplifies OpenQASM
-significantly since there is no need for quantum memory management.
-However, it also means that users or compiler have to explicitly manage
-the quantum memory. In addition to being assigned values within a
-program, all of the classical types can be initialized on declaration.
-Multiple comma-separated declarations can occur after the typename with
-optional assignment on declaration for each. Any classical variable or
-Boolean that is not explicitly initialized is undefined. Classical types
-can be mutually cast to one another using the typename . We use the
-notation to denote the width and precision of fixed point numbers, where
-is the number of sign bits, is the number of integer bits, and is the
+not override a reserved identifier.</p>
+<p>In addition to being assigned values within a program, all of the classical
+types can be initialized on declaration. Multiple comma-separated declarations
+can occur after the typename with optional assignment on declaration for each.
+Any classical variable or Boolean that is not explicitly initialized is
+undefined. Classical types can be mutually cast to one another using the
+typename.</p>
+<p>We use the notation to denote the width and precision of fixed point numbers,
+where is the number of sign bits, is the number of integer bits, and is the
 number of fractional bits. It is necessary to specify low-level
 classical representations since OpenQASM operates at the intersection of
 gates/analog control and digital feedback and we need to be able to
@@ -179,6 +175,11 @@ of this register, where
 <span class="math notranslate nohighlight">\(j\in \{0,1,\dots,\mathrm{size}(\mathrm{name})-1\}\)</span> is an integer.
 Qubits are initially in an undefined state. A quantum operation is one
 way to initialize qubit states.</p>
+<p>All qubits are global variables.
+Qubits cannot be declared within gates or subroutines. This simplifies OpenQASM
+significantly since there is no need for quantum memory management.
+However, it also means that users or compiler have to explicitly manage
+the quantum memory.</p>
 </div>
 <div class="section" id="physical-qubits">
 <h5>Physical Qubits<a class="headerlink" href="#physical-qubits" title="Permalink to this headline">¶</a></h5>
@@ -395,7 +396,7 @@ the qubit .</p>
 be concatenated to form a register of the same type whose size is the
 sum of the sizes of the individual registers. The concatenated register
 is a reference to the bits or qubits of the original registers. The
-statement denotes the concatenation of registers and . A register cannot
+statement denotes the concatenation of registers. A register cannot
 be concatenated with any part of itself.</p>
 <p>Classical and quantum registers can be indexed in a way that selects a
 subset of (qu)bits, i.e. by an index set. A register so indexed is
@@ -426,6 +427,10 @@ variables whose values may only be known at run time.</p>
 <span class="n">let</span> <span class="n">sliced</span> <span class="o">=</span> <span class="n">concatenated</span><span class="p">[</span><span class="mi">0</span><span class="o">:</span><span class="mi">6</span><span class="p">];</span>
 <span class="c1">// Every second qubit</span>
 <span class="n">let</span> <span class="n">every_second</span> <span class="o">=</span> <span class="n">concatenated</span><span class="p">[</span><span class="mi">0</span><span class="o">:</span><span class="mi">2</span><span class="o">:</span><span class="mi">12</span><span class="p">];</span>
+<span class="c1">// Using negative ranges to take the last 3 elements</span>
+<span class="n">let</span> <span class="n">last_three</span> <span class="o">=</span> <span class="n">two</span><span class="p">[</span><span class="mi">-4</span><span class="o">:</span><span class="mi">-1</span><span class="p">];</span>
+<span class="c1">// Concatenate two alias in another one</span>
+<span class="n">let</span> <span class="n">both</span> <span class="o">=</span> <span class="n">sliced</span> <span class="o">||</span> <span class="n">last_three</span><span class="p">;</span>
 </pre></div>
 </div>
 </div>
