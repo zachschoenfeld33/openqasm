@@ -108,7 +108,7 @@ Appendix <a class="reference external" href="#app:semantics">[app:semantics]</a
 <div class="toctree-wrapper compound">
 <span id="document-language/comments"></span><div class="section" id="comments">
 <h3>Comments<a class="headerlink" href="#comments" title="Permalink to this headline">¶</a></h3>
-<p>Comments begin with a pair of forward slashes and end with a new line:</p>
+<p>Comments begin with a pair of forward slashes <code class="docutils literal notranslate"><span class="pre">//</span></code> and end with a new line:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// A comment line</span>
 </pre></div>
 </div>
@@ -121,7 +121,7 @@ Appendix <a class="reference external" href="#app:semantics">[app:semantics]</a
 </div>
 <div class="section" id="version-string">
 <h3>Version string<a class="headerlink" href="#version-string" title="Permalink to this headline">¶</a></h3>
-<p>The first (non-comment) line of an OpenQASM program may optionally be
+<p>The first (non-comment) line of an OpenQASM program may optionally be <code class="docutils literal notranslate"><span class="pre">OPENQASM</span> <span class="pre">M.m;</span></code>
 indicating a major version M and minor version m. Version 3.0 is
 described in this document. Multiple occurrences of the version keyword
 are not permitted. The minor version number and decimal point are
@@ -129,8 +129,8 @@ optional. If they are not present, minor version number is assumed to be zero.</
 </div>
 <div class="section" id="included-files">
 <h3>Included files<a class="headerlink" href="#included-files" title="Permalink to this headline">¶</a></h3>
-<p>The statement continues parsing as if the contents of the file were
-inserted at the location of the statement.</p>
+<p>The statement <code class="docutils literal notranslate"><span class="pre">include</span> <span class="pre">&quot;filename&quot;;</span></code> continues parsing <code class="docutils literal notranslate"><span class="pre">filenmae</span></code> as if the contents of the file were
+inserted at the location of the <code class="docutils literal notranslate"><span class="pre">include</span></code> statement.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// First non-comment is a version string</span>
 <span class="n">OPENQASM</span> <span class="mf">3.0</span><span class="p">;</span>
 
@@ -155,8 +155,8 @@ can occur after the typename with optional assignment on declaration for each.
 Any classical variable or Boolean that is not explicitly initialized is
 undefined. Classical types can be mutually cast to one another using the
 typename.</p>
-<p>We use the notation to denote the width and precision of fixed point numbers,
-where is the number of sign bits, is the number of integer bits, and is the
+<p>We use the notation <code class="docutils literal notranslate"><span class="pre">s:m:f</span></code> to denote the width and precision of fixed point numbers,
+where <code class="docutils literal notranslate"><span class="pre">s</span></code> is the number of sign bits, <code class="docutils literal notranslate"><span class="pre">m</span></code> is the number of integer bits, and <code class="docutils literal notranslate"><span class="pre">f</span></code> is the
 number of fractional bits. It is necessary to specify low-level
 classical representations since OpenQASM operates at the intersection of
 gates/analog control and digital feedback and we need to be able to
@@ -167,16 +167,16 @@ are scoped to the braces within which they are declared.</p>
 <h4>Quantum types<a class="headerlink" href="#quantum-types" title="Permalink to this headline">¶</a></h4>
 <div class="section" id="qubits">
 <h5>Qubits<a class="headerlink" href="#qubits" title="Permalink to this headline">¶</a></h5>
-<p>There is a quantum bit () type that is interpreted as a reference to a
+<p>There is a quantum bit (<code class="docutils literal notranslate"><span class="pre">qubit</span></code>) type that is interpreted as a reference to a
 two-level subsystem of a quantum state. Quantum registers are static
-arrays of qubits that cannot be dynamically resized. The statement
-declares a reference to a quantum bit. The statement or declares a
-quantum register with the given name identifier. The keyword is included
+arrays of qubits that cannot be dynamically resized. The statement <code class="docutils literal notranslate"><span class="pre">qubit</span> <span class="pre">name;</span></code>
+declares a reference to a quantum bit. The statement <code class="docutils literal notranslate"><span class="pre">qreg</span> <span class="pre">name[size];</span></code> or <code class="docutils literal notranslate"><span class="pre">qubit</span> <span class="pre">name[size];</span></code> declares a
+quantum register with the given name identifier. The keyword <code class="docutils literal notranslate"><span class="pre">qreg</span></code> is included
 for backwards compatibility and will be removed in the future. Sizes
-must always be constant positive integers. The label refers to a qubit
+must always be constant positive integers. The label <code class="docutils literal notranslate"><span class="pre">name[j]</span></code> refers to a qubit
 of this register, where
 <span class="math notranslate nohighlight">\(j\in \{0,1,\dots,\mathrm{size}(\mathrm{name})-1\}\)</span> is an integer.
-Qubits are initially in an undefined state. A quantum operation is one
+Qubits are initially in an undefined state. A quantum <code class="docutils literal notranslate"><span class="pre">reset</span></code> operation is one
 way to initialize qubit states.</p>
 <p>All qubits are global variables.
 Qubits cannot be declared within gates or subroutines. This simplifies OpenQASM
@@ -196,8 +196,8 @@ qubit gamma;
 qubit γ;
 // Declare a qubit array with 20 qubits
 qubit qubit_array[20];
-// Declare usage of physical qubit 0
-qubit %0;
+// CNOT gate between physical qubits 0 and 1
+CX %0, %1;
 </pre></div>
 </div>
 </div>
@@ -209,9 +209,9 @@ qubit %0;
 <p>There is a classical bit type that takes values 0 or 1. Classical
 registers are static arrays of bits. The classical registers model part
 of the controller state that is exposed within the OpenQASM program. The
-statement declares a classical bit, and or declares an array of bits
-(register). The keyword is deprecated and will be removed in the future.
-The label refers to a bit of this register, where <span class="math notranslate nohighlight">\(j\in
+statement <code class="docutils literal notranslate"><span class="pre">bit</span> <span class="pre">name;</span></code> declares a classical bit, and <code class="docutils literal notranslate"><span class="pre">creg</span> <span class="pre">name[size];</span></code> or <code class="docutils literal notranslate"><span class="pre">bit</span> <span class="pre">name[size];</span></code> declares an array of bits
+(register). The keyword <code class="docutils literal notranslate"><span class="pre">creg</span></code> is deprecated and will be removed in the future.
+The label <code class="docutils literal notranslate"><span class="pre">name[j]</span></code> refers to a bit of this register, where <span class="math notranslate nohighlight">\(j\in
 \{0,1,\dots,\mathrm{size}(\mathrm{name})-1\}\)</span> is an integer. For
 convenience, classical registers can be assigned a text string
 containing zeros and ones of the same length as the size of the
@@ -227,36 +227,40 @@ bit is on the right.</p>
 </div>
 <div class="section" id="integers">
 <h5>Integers<a class="headerlink" href="#integers" title="Permalink to this headline">¶</a></h5>
-<p>There are n-bit signed and unsigned integers. The statements and declare
+<p>There are n-bit signed and unsigned integers. The statements <code class="docutils literal notranslate"><span class="pre">int[size]</span> <span class="pre">name;</span></code> and <code class="docutils literal notranslate"><span class="pre">uint[size]</span> <span class="pre">name;</span></code> declare
 signed 1:n-1:0 and unsigned 0:n:0 integers of the given size. The sizes
 are always explicitly part of the type; there is no implicit width for
 classical types in OpenQASM. Because register indices are integers, they
 can be cast from classical registers containing measurement outcomes and
 may only be known at run time. An n-bit classical register containing
 bits can also be reinterpreted as an integer, and these types can be
-mutually cast to one another using the type name, e.g. . As noted, this
-conversion will be done assuming little-endian bit ordering.</p>
+mutually cast to one another using the type name, e.g. <code class="docutils literal notranslate"><span class="pre">int[16](c)</span></code>. As noted, this
+conversion will be done assuming little-endian bit ordering. The example
+below demonstrates how to declare, assign and cast integer types amongst
+one another.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Declare a 32-bit unsigned integer</span>
-<span class="n">uint</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span> <span class="n">my_uint</span><span class="p">;</span>
-<span class="c1">// Declare a 32 bit signed integer</span>
-<span class="kt">int</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span> <span class="n">my_int</span><span class="p">;</span>
+<span class="n">uint</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span> <span class="n">my_uint</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="c1">// Declare a 16 bit signed integer</span>
+<span class="kt">int</span><span class="p">[</span><span class="mi">16</span><span class="p">]</span> <span class="n">my_int</span><span class="p">;</span>
+<span class="n">my_int</span> <span class="o">=</span> <span class="kt">int</span><span class="p">[</span><span class="mi">16</span><span class="p">](</span><span class="n">my_uint</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="signed-fixed-point-numbers">
 <h5>Signed fixed-point numbers<a class="headerlink" href="#signed-fixed-point-numbers" title="Permalink to this headline">¶</a></h5>
-<p>There are fixed-point numbers with integer bits, fractional bits, and 1
-sign bit. The statement declares a fixed-point number.</p>
+<p>There are <code class="docutils literal notranslate"><span class="pre">1:m:f</span></code> fixed-point numbers with <code class="docutils literal notranslate"><span class="pre">m</span></code> integer bits, <code class="docutils literal notranslate"><span class="pre">f</span></code> fractional bits, and 1
+sign bit. The statement <code class="docutils literal notranslate"><span class="pre">fixed[m,</span> <span class="pre">f]</span> <span class="pre">name;</span></code> declares a <code class="docutils literal notranslate"><span class="pre">1:m:f</span></code> fixed-point number.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Declare a 32-bit fixed point number.</span>
 <span class="c1">// The number is signed, has 7 integer bits</span>
-<span class="c1">// and 24 fractional bits.</span>
-<span class="n">fixed</span><span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">24</span><span class="p">]</span> <span class="n">my_fixed</span><span class="p">;</span>
+<span class="c1">// and 24 fractional bits. The decimal number</span>
+<span class="c1">// assignment is implicitly cast.</span>
+<span class="n">fixed</span><span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">24</span><span class="p">]</span> <span class="n">my_fixed</span> <span class="o">=</span> <span class="mf">-7.0625</span><span class="p">;</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="floating-point-numbers">
 <h5>Floating point numbers<a class="headerlink" href="#floating-point-numbers" title="Permalink to this headline">¶</a></h5>
-<p>IEEE 754 floating point registers may be declared with , where would
+<p>IEEE 754 floating point registers may be declared with <code class="docutils literal notranslate"><span class="pre">float[size]</span> <span class="pre">name;</span></code>, where <code class="docutils literal notranslate"><span class="pre">float[64]</span></code> would
 indicate a standard double-precision float. Note that some hardware
 vendors may not support manipulating these values at run-time.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span>// Declare a single-precision 32-bit float
@@ -266,24 +270,27 @@ float[32] my_float = π;
 </div>
 <div class="section" id="fixed-point-angles">
 <h5>Fixed-point angles<a class="headerlink" href="#fixed-point-angles" title="Permalink to this headline">¶</a></h5>
-<p>Fixed-point angles are interpreted as <span class="math notranslate nohighlight">\(2\pi\)</span> times a 0:1:n-1
+<p>Fixed-point angles are interpreted as 2π times a 0:1:n-1
 fixed-point number. This represents angles in the interval
 <span class="math notranslate nohighlight">\([0,2\pi)\)</span> up to an error <span class="math notranslate nohighlight">\(\epsilon\leq \pi/2^{n-1}\)</span> modulo
-<span class="math notranslate nohighlight">\(2\pi\)</span>. The statement declares an n-bit angle. OpenQASM3
+2π. The statement <code class="docutils literal notranslate"><span class="pre">angle[size]</span> <span class="pre">name;</span></code> declares an n-bit angle. OpenQASM3
 introduces this specialized type because of the ubiquity of this angle
 representation in phase estimation circuits and numerically controlled
 oscillators found in hardware platform. Note that defining gate
-parameters with types may be necessary for those parameters to be
+parameters with <code class="docutils literal notranslate"><span class="pre">angle</span></code> types may be necessary for those parameters to be
 compatible with run-time values on some platforms.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Declare an angle with 20 bits of precision</span>
-<span class="n">angle</span><span class="p">[</span><span class="mi">20</span><span class="p">]</span> <span class="n">my_angle</span><span class="p">;</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span>// Declare an angle with 20 bits of precision and assign it a value of π/2
+angle[20] my_angle = π / 2;
+float[32] float_pi = π;
+// equivalent to pi_by_2 up to rounding errors
+angle[20](float_pi / 2);
 </pre></div>
 </div>
 </div>
 <div class="section" id="boolean-types">
 <h5>Boolean types<a class="headerlink" href="#boolean-types" title="Permalink to this headline">¶</a></h5>
-<p>There is a Boolean type that takes values or . Qubit measurement results
-can be converted from a classical type to a Boolean using , where 1 will
+<p>There is a Boolean type <code class="docutils literal notranslate"><span class="pre">bool</span> <span class="pre">name;</span></code> that takes values <code class="docutils literal notranslate"><span class="pre">true</span></code> or <code class="docutils literal notranslate"><span class="pre">false</span></code>. Qubit measurement results
+can be converted from a classical <code class="docutils literal notranslate"><span class="pre">bit</span></code> type to a Boolean using <code class="docutils literal notranslate"><span class="pre">bool(c)</span></code>, where 1 will
 be true and 0 will be false.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">bit</span> <span class="n">my_bit</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 <span class="kt">bool</span> <span class="n">my_bool</span><span class="p">;</span>
@@ -300,8 +307,8 @@ declaration, they take their assigned value and cannot be redefined
 within the same scope. These are constructed using an in-fix notation
 and scientific calculator features such as scientific notation, real
 arithmetic, logarithmic, trigonometric, and exponential functions
-including , , , , , , and the built-in constant <span class="math notranslate nohighlight">\(\pi\)</span>. The
-statement defines a new constant. The expression on the right hand side
+including <code class="docutils literal notranslate"><span class="pre">sqrt</span></code>, <code class="docutils literal notranslate"><span class="pre">floor</span></code>, <code class="docutils literal notranslate"><span class="pre">ceiling</span></code>, <code class="docutils literal notranslate"><span class="pre">log</span></code>, <code class="docutils literal notranslate"><span class="pre">pow</span></code>, <code class="docutils literal notranslate"><span class="pre">div</span></code>, <code class="docutils literal notranslate"><span class="pre">mod</span></code> and the built-in constant π. The
+statement <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">name</span> <span class="pre">=</span> <span class="pre">expression;</span></code> defines a new constant. The expression on the right hand side
 has a similar syntax as OpenQASM 2 parameter expressions; however,
 previously defined constants can be referenced in later variable
 declarations. Real constants are compile-time constants, allowing the
@@ -339,14 +346,14 @@ float[32] pi_by_2_val = float(pi_by_2)
 <td><p>Unicode</p></td>
 <td><p>Approximate Base 10</p></td>
 </tr>
-<tr class="row-even"><td><p>(r)1-1(lr)2-2(rl)3-3(l)4-4 Pi</p></td>
+<tr class="row-even"><td><p>Pi</p></td>
 <td><p>pi</p></td>
-<td><p><span class="math notranslate nohighlight">\(\pi\)</span></p></td>
+<td><p>π</p></td>
 <td><p>3.1415926535…</p></td>
 </tr>
 <tr class="row-odd"><td><p>Tau</p></td>
 <td><p>tau</p></td>
-<td><p><span class="math notranslate nohighlight">\(\tau\)</span></p></td>
+<td><p>τ</p></td>
 <td><p>6.283185…</p></td>
 </tr>
 <tr class="row-even"><td><p>Euler’s number</p></td>
@@ -363,10 +370,10 @@ float[32] pi_by_2_val = float(pi_by_2)
 <h4>Types related to timing<a class="headerlink" href="#types-related-to-timing" title="Permalink to this headline">¶</a></h4>
 <div class="section" id="length">
 <h5>length<a class="headerlink" href="#length" title="Permalink to this headline">¶</a></h5>
-<p>We introduce a type and several keywords to express lengths of time.
-Lengths are positive numbers with a unit of time. are used for SI time
-units. is a backend-dependent unit equivalent to one waveform sample on
-the backend. is an intrinsic function used to reference the duration of
+<p>We introduce a <code class="docutils literal notranslate"><span class="pre">length</span></code> type and several keywords to express lengths of time.
+Lengths are positive numbers with a unit of time. <code class="docutils literal notranslate"><span class="pre">ns,</span> <span class="pre">μs,</span> <span class="pre">ms,</span> <span class="pre">s</span></code> are used for SI time
+units. <code class="docutils literal notranslate"><span class="pre">dt</span></code> is a backend-dependent unit equivalent to one waveform sample on
+the backend. <code class="docutils literal notranslate"><span class="pre">lengthof()</span></code> is an intrinsic function used to reference the duration of
 another part of the program or the duration of a calibrated gate.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">length</span> <span class="n">one_second</span> <span class="o">=</span> <span class="mi">1000</span><span class="n">ms</span><span class="p">;</span>
 <span class="n">length</span> <span class="n">thousand_cycles</span> <span class="o">=</span> <span class="mi">1000</span><span class="n">dt</span><span class="p">;</span>
@@ -375,12 +382,12 @@ another part of the program or the duration of a calibrated gate.</p>
 </div>
 <div class="section" id="stretch">
 <h5>stretch<a class="headerlink" href="#stretch" title="Permalink to this headline">¶</a></h5>
-<p>We further introduce a type which is a sub-type of . Stretchable lengths
+<p>We further introduce a <code class="docutils literal notranslate"><span class="pre">stretch</span></code> type which is a sub-type of <code class="docutils literal notranslate"><span class="pre">length</span></code>. Stretchable lengths
 have variable non-negative length that is permitted to grow as necessary
 to satisfy constraints. Stretch variables are resolved at compile time
 into target-appropriate durations that satisfy a user’s specified design
-intent. We distinguish different “orders” of stretch via types, where N
-is an integer between 0 to 255. is an alias for the regular . At the
+intent. We distinguish different “orders” of stretch via <code class="docutils literal notranslate"><span class="pre">stretchN</span></code> types, where N
+is an integer between 0 to 255. <code class="docutils literal notranslate"><span class="pre">stretch0</span></code> is an alias for the regular <code class="docutils literal notranslate"><span class="pre">stretch</span></code>. At the
 timing resolution stage of the compiler, higher order stretches will
 suppress lower order stretches whenever they appear in the same scope on
 the same qubits.</p>
@@ -388,10 +395,13 @@ the same qubits.</p>
 </div>
 <div class="section" id="aliasing">
 <h4>Aliasing<a class="headerlink" href="#aliasing" title="Permalink to this headline">¶</a></h4>
-<p>The keyword allows quantum bits and registers to be referred to by
-another name as long as the alias is in scope. For example, creates a
-new reference to the last 4 qubits of the register . The qubit refers to
-the qubit .</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">let</span></code> keyword allows quantum bits and registers to be referred to by
+another name as long as the alias is in scope.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">qubit</span> <span class="n">q</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span>
+<span class="c1">// myreg[0] refers to the qubit q[1]</span>
+<span class="n">let</span> <span class="n">myreg</span> <span class="o">=</span> <span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="o">:</span><span class="mi">4</span><span class="p">];</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="register-concatenation-and-slicing">
 <h4>Register concatenation and slicing<a class="headerlink" href="#register-concatenation-and-slicing" title="Permalink to this headline">¶</a></h4>
@@ -399,7 +409,7 @@ the qubit .</p>
 be concatenated to form a register of the same type whose size is the
 sum of the sizes of the individual registers. The concatenated register
 is a reference to the bits or qubits of the original registers. The
-statement denotes the concatenation of registers. A register cannot
+statement <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">||</span> <span class="pre">b</span></code> denotes the concatenation of registers <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>. A register cannot
 be concatenated with any part of itself.</p>
 <p>Classical and quantum registers can be indexed in a way that selects a
 subset of (qu)bits, i.e. by an index set. A register so indexed is
@@ -408,7 +418,7 @@ The register slice is a reference to the original register. A register
 cannot be indexed by an empty index set.</p>
 <p>An index set can be specified by a single unsigned integer, a
 comma-separated list of unsigned integers <code class="docutils literal notranslate"><span class="pre">a,b,c,…</span></code>, or a range. A
-range is written as or where , , and are integers (signed or unsigned).
+range is written as <code class="docutils literal notranslate"><span class="pre">a:b</span></code> or <code class="docutils literal notranslate"><span class="pre">a:c:b</span></code> where <code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">b</span></code>, and <code class="docutils literal notranslate"><span class="pre">c</span></code> are integers (signed or unsigned).
 The range corresponds to the set <span class="math notranslate nohighlight">\(\{a, a+c, a+2c, \dots, a+mc\}\)</span>
 where <span class="math notranslate nohighlight">\(m\)</span> is the largest integer such that <span class="math notranslate nohighlight">\(a+mc\leq b\)</span> if
 <span class="math notranslate nohighlight">\(c&gt;0\)</span> and <span class="math notranslate nohighlight">\(a+mc\geq b\)</span> if <span class="math notranslate nohighlight">\(c&lt;0\)</span>. If <span class="math notranslate nohighlight">\(a=b\)</span> then
@@ -461,15 +471,14 @@ gate</p>
 0 &amp; 0 &amp; 0 &amp; 1 \\
 0 &amp; 0 &amp; 1 &amp; 0 \\
 0 &amp; 1 &amp; 0 &amp; 0 \end{array}\right)\end{split}\]</div>
-<p>called the controlled-NOT gate. The statement describes a CNOT gate that
-flips the target qubit if and only if the control qubit is one. The
-arguments cannot refer to the same qubit. If and are quantum registers
-<em>with the same size</em>, the statement means apply for each index into
-register . If instead, is a qubit and is a quantum register, the
-statement means apply for each index into register . Finally, if is a
-quantum register and is a qubit, the statement means apply for each
-index into register .</p>
-<p>.</p>
+<p>called the controlled-NOT gate. The statement <code class="docutils literal notranslate"><span class="pre">CX</span> <span class="pre">a,</span> <span class="pre">b;</span></code> describes a CNOT gate that
+flips the target qubit <code class="docutils literal notranslate"><span class="pre">b</span></code> if and only if the control qubit <code class="docutils literal notranslate"><span class="pre">a</span></code> is one. The
+arguments cannot refer to the same qubit. For convenience, gates automatically broadcast over registers. If <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code> are quantum registers
+<em>with the same size</em>, the statement <code class="docutils literal notranslate"><span class="pre">CX</span> <span class="pre">a,</span> <span class="pre">b;</span></code> means apply <code class="docutils literal notranslate"><span class="pre">CX</span> <span class="pre">a[j],</span> <span class="pre">b[j];</span></code> for each index <code class="docutils literal notranslate"><span class="pre">j</span></code> into
+register <code class="docutils literal notranslate"><span class="pre">a</span></code>. If instead <code class="docutils literal notranslate"><span class="pre">a</span></code> is a qubit and <code class="docutils literal notranslate"><span class="pre">b</span></code> is a quantum register, the
+statement means apply <code class="docutils literal notranslate"><span class="pre">CX</span> <span class="pre">a,</span> <span class="pre">b[j]</span></code> for each index <code class="docutils literal notranslate"><span class="pre">j</span></code> into register <code class="docutils literal notranslate"><span class="pre">b</span></code>. Finally, if <code class="docutils literal notranslate"><span class="pre">a</span></code> is a
+quantum register and <code class="docutils literal notranslate"><span class="pre">b</span></code> is a qubit, the statement means apply <code class="docutils literal notranslate"><span class="pre">CX</span> <span class="pre">a[j],</span> <span class="pre">b;</span></code> for each
+index <code class="docutils literal notranslate"><span class="pre">j</span></code> into register <code class="docutils literal notranslate"><span class="pre">a</span></code>.</p>
 <p>All of the single-qubit unitary gates are also built-in and
 parameterized as</p>
 <div class="math notranslate nohighlight">
@@ -477,15 +486,15 @@ parameterized as</p>
     e^{-i(\phi+\lambda)/2}\cos(\theta/2) &amp; -e^{-i(\phi-\lambda)/2}\sin(\theta/2) \\
 e^{i(\phi-\lambda)/2}\sin(\theta/2) &amp; e^{i(\phi+\lambda)/2}\cos(\theta/2) \end{array}\right).\end{split}\]</div>
 <p>Here <span class="math notranslate nohighlight">\(R_y(\theta)=\mathrm{exp}(-i\theta Y/2)\)</span> and
-<span class="math notranslate nohighlight">\(R_z(\phi)=\mathrm{exp}(-i\theta Z/2)\)</span>. When is a quantum
-register, the statement means apply for each index into register . The
+<span class="math notranslate nohighlight">\(R_z(\phi)=\mathrm{exp}(-i\theta Z/2)\)</span>. When <code class="docutils literal notranslate"><span class="pre">a</span></code> is a quantum
+register, the statement <code class="docutils literal notranslate"><span class="pre">U(θ,</span> <span class="pre">ϕ,</span> <span class="pre">λ)</span> <span class="pre">a;</span></code> means apply <code class="docutils literal notranslate"><span class="pre">U(θ,</span> <span class="pre">ϕ,</span> <span class="pre">λ)</span> <span class="pre">a[j];</span></code> for each index <code class="docutils literal notranslate"><span class="pre">j</span></code> into register <code class="docutils literal notranslate"><span class="pre">a</span></code>. The
 values <span class="math notranslate nohighlight">\(\theta\in [0,2\pi)\)</span>, <span class="math notranslate nohighlight">\(\phi\in [0,2\pi)\)</span>, and
 <span class="math notranslate nohighlight">\(\lambda\in
 [0,2\pi)\)</span> in this base gate are angles whose precision is implementation
 dependent <a class="footnote-reference brackets" href="#id3" id="id2">1</a>. This specifies any element of <span class="math notranslate nohighlight">\(SU(2)\)</span> up to a
-global phase. For example, applies a Hadamard gate to qubit .</p>
+global phase. For example <code class="docutils literal notranslate"><span class="pre">U(π/2,</span> <span class="pre">0,</span> <span class="pre">π)</span> <span class="pre">q[0];</span></code>, applies a Hadamard gate to qubit <code class="docutils literal notranslate"><span class="pre">q[0]</span></code>.</p>
 <p>Finally, a built-in global phase gate allows the inclusion of arbitrary
-global phase on circuits. adds a global phase of <span class="math notranslate nohighlight">\(e^{i\gamma}\)</span> to
+global phase on circuits. <code class="docutils literal notranslate"><span class="pre">gphase(γ);</span></code> adds a global phase of <span class="math notranslate nohighlight">\(e^{i\gamma}\)</span> to
 the circuit. e.g.:</p>
 </div>
 <div class="section" id="hierarchically-defined-unitary-gates">
@@ -505,9 +514,9 @@ corresponding OpenQASM code is</p>
 cphase(π / 2) q[0], q[1];
 </pre></div>
 </div>
-<p>Note that this definition does not imply that must be implemented with
+<p>Note that this definition does not imply that <code class="docutils literal notranslate"><span class="pre">cphase</span></code> must be implemented with
 this series of gates. Rather, we have specified the unitary
-transformation that corresponds to the symbol . The particular
+transformation that corresponds to the symbol <code class="docutils literal notranslate"><span class="pre">cphase</span></code>. The particular
 implementation is up to the compiler, given information about the basis
 gate set supported by a particular target.</p>
 <p>In general, new gates are defined by statements of the form</p>
@@ -518,12 +527,12 @@ gate set supported by a particular target.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>where the optional parameter list is a comma-separated list of variable
-parameters, and the argument list is a comma-separated list of qubit
+<p>where the optional parameter list <code class="docutils literal notranslate"><span class="pre">params</span></code> is a comma-separated list of variable
+parameters, and the argument list <code class="docutils literal notranslate"><span class="pre">qargs</span></code> is a comma-separated list of qubit
 arguments. The parameters are identifiers with angular types and default
 to 32-bits. The qubit arguments are identifiers. If there are no
 variable parameters, the parentheses are optional. At least one qubit
-argument is required. The arguments in cannot be indexed within the body
+argument is required. The arguments in <code class="docutils literal notranslate"><span class="pre">qargs</span></code> cannot be indexed within the body
 of the gate definition.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// this is ok:</span>
 <span class="n">gate</span> <span class="n">g</span> <span class="n">a</span>
@@ -538,14 +547,13 @@ of the gate definition.</p>
 </pre></div>
 </div>
 <p>Only built-in gate statements, calls to previously defined gates, and
-timing directives can appear in . For example, it is not valid to
+timing directives can appear in <code class="docutils literal notranslate"><span class="pre">body</span></code>. For example, it is not valid to
 declare a classical register in a gate body. The statements in the body
 can only refer to the symbols given in the parameter or argument list,
 and these symbols are scoped only to the subroutine body. An empty body
 corresponds to the identity gate. Gates must be declared before use and
-cannot call themselves. The statement applies the gate, and the variable
-parameters are given as angular types or in-place constant parameter
-expressions which are cast to angles. The gate can be applied to any
+cannot call themselves. The statement <code class="docutils literal notranslate"><span class="pre">name(params)</span> <span class="pre">qargs;</span></code> applies the gate, and the variable
+parameters <code class="docutils literal notranslate"><span class="pre">params</span></code> can have any numeric type. The gate can be applied to any
 combination of qubits and quantum registers <em>of the same size</em> as shown
 in the following example. The quantum circuit given by</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">gate</span> <span class="n">g</span> <span class="n">qb0</span><span class="p">,</span> <span class="n">qb1</span><span class="p">,</span> <span class="n">qb2</span><span class="p">,</span> <span class="n">qb3</span>
@@ -561,6 +569,9 @@ in the following example. The quantum circuit given by</p>
 </pre></div>
 </div>
 <p>has a second-to-last line that means</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// FIXME: insert translation of algorithmic block from TeX source.</span>
+</pre></div>
+</div>
 <p>We provide this so that user-defined gates can be applied in parallel
 like the built-in gates.</p>
 </div>
@@ -570,23 +581,34 @@ like the built-in gates.</p>
 <span class="math notranslate nohighlight">\(m\)</span> transforms a gate <span class="math notranslate nohighlight">\(U\)</span> to a new gate <span class="math notranslate nohighlight">\(m(U)\)</span> acting
 on the same or larger Hilbert space. We include modifiers in OpenQASM
 both for programming convenience and compiler analysis.</p>
-<p>The modifier replaces its gate argument <span class="math notranslate nohighlight">\(U\)</span> with its inverse
+<p>The modifier <code class="docutils literal notranslate"><span class="pre">inv</span> <span class="pre">&#64;</span></code> replaces its gate argument <span class="math notranslate nohighlight">\(U\)</span> with its inverse
 <span class="math notranslate nohighlight">\(U^\dagger\)</span>. The inverse of any gate can be defined recursively by
 reversing the order of the gates in its definition and replacing each of
-those with their inverse. The base case is given by replacing with and
-by .</p>
-<p>The modifier replaces its gate argument <span class="math notranslate nohighlight">\(U\)</span> by its <span class="math notranslate nohighlight">\(k\)</span>th
+those with their inverse. The base case is given by replacing <code class="docutils literal notranslate"><span class="pre">inv</span> <span class="pre">&#64;</span> <span class="pre">CX</span></code> with <code class="docutils literal notranslate"><span class="pre">CX</span></code> and
+<code class="docutils literal notranslate"><span class="pre">inv</span> <span class="pre">&#64;</span> <span class="pre">U(θ,</span> <span class="pre">ϕ,</span> <span class="pre">λ)</span></code> by <code class="docutils literal notranslate"><span class="pre">U(-θ,</span> <span class="pre">-λ,</span> <span class="pre">-ϕ)</span></code>.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span>gate rzm(theta) q1 {
+    inv @ rzp(theta) q1;
+}
+</pre></div>
+</div>
+<p>The modifier <code class="docutils literal notranslate"><span class="pre">pow[k]</span> <span class="pre">&#64;</span></code> replaces its gate argument <span class="math notranslate nohighlight">\(U\)</span> by its <span class="math notranslate nohighlight">\(k\)</span>th
 power <span class="math notranslate nohighlight">\(U^k\)</span> for some positive integer <span class="math notranslate nohighlight">\(k\)</span> (not necessarily
 constant). Such a gate can be trivially defined as <span class="math notranslate nohighlight">\(k\)</span> repetitions
 of the original gate, although more efficient implementations may be
 possible.</p>
-<p>The modifier replaces its gate argument <span class="math notranslate nohighlight">\(U\)</span> by a
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span>// define x as sqrt(x)
+gate x q1 {
+    pow[2] @ sx q1;
+}
+</pre></div>
+</div>
+<p>The modifier <code class="docutils literal notranslate"><span class="pre">ctrl</span> <span class="pre">&#64;</span></code> replaces its gate argument <span class="math notranslate nohighlight">\(U\)</span> by a
 controlled-<span class="math notranslate nohighlight">\(U\)</span> gate. The new control qubit is prepended to the
 argument list for the controlled-<span class="math notranslate nohighlight">\(U\)</span> gate. The modified gate does
 not use any additional scratch space. A target may or may not be able to
 execute the gate without further compilation.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span>// Define a controlled Rz operation using the ctrl gatemodifier.
-gate crz(angle[20]: θ) q1, q2 {
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span>// Define a controlled Rz operation using the ctrl gate modifier.
+gate crz(θ) q1, q2 {
     ctrl @ U(θ, 0, 0) q1, q2;
 }
 </pre></div>
@@ -605,30 +627,30 @@ that of the built-in gates.</p>
 <p>This sections describes built-in non-unitary operations.</p>
 <div class="section" id="initialization">
 <h4>Initialization<a class="headerlink" href="#initialization" title="Permalink to this headline">¶</a></h4>
-<p>The statement resets a qubit or quantum register to the state
+<p>The statement <code class="docutils literal notranslate"><span class="pre">reset</span> <span class="pre">qubit|qubit[];</span></code> resets a qubit or quantum register to the state
 <span class="math notranslate nohighlight">\(|0\rangle\)</span>. This corresponds to a partial trace over those qubits
 (i.e. discarding them) before replacing them with
 <span class="math notranslate nohighlight">\(|0\rangle\langle 0|\)</span>. Reset is shown in
 Fig. <a class="reference external" href="#fig:prepare">[fig:prepare]</a>.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Initialize and reset an array of 10 qubits</span>
-<span class="n">qubit</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="n">qubits</span><span class="p">;</span>
+<span class="n">qubit</span> <span class="n">qubits</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
 <span class="n">reset</span> <span class="n">qubits</span><span class="p">;</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="measurement">
 <h4>Measurement<a class="headerlink" href="#measurement" title="Permalink to this headline">¶</a></h4>
-<p>The statement measures the qubit(s) in the <span class="math notranslate nohighlight">\(Z\)</span>-basis and assigns
+<p>The statement <code class="docutils literal notranslate"><span class="pre">bit|bit[]</span> <span class="pre">=</span> <span class="pre">measure</span> <span class="pre">qubit|qreg;</span></code> measures the qubit(s) in the <span class="math notranslate nohighlight">\(Z\)</span>-basis and assigns
 the measurement outcome(s) to the target bit(s). For backwards
-compatibility this is equivalent to which is also supported. Measurement
+compatibility this is equivalent to <code class="docutils literal notranslate"><span class="pre">measure</span> <span class="pre">qubit|qubit[]</span> <span class="pre">-&gt;</span> <span class="pre">bit|bit[];</span></code> which is also supported. Measurement
 corresponds to a projection onto one of the eigenstates of <span class="math notranslate nohighlight">\(Z\)</span>,
 and qubit(s) are immediately available for further quantum computation.
 Both arguments must be register-type, or both must be bit-type. If both
-arguments are register-type and have the same size, the statement
-broadcasts to for each index into register . Measurement is shown in
+arguments are register-type and have the same size, the statement  <code class="docutils literal notranslate"><span class="pre">b</span> <span class="pre">=</span> <span class="pre">measure</span> <span class="pre">a;</span></code>
+broadcasts to <code class="docutils literal notranslate"><span class="pre">b[j]</span> <span class="pre">=</span> <span class="pre">measure</span> <span class="pre">a[j];</span></code> for each index <code class="docutils literal notranslate"><span class="pre">j</span></code> into register <code class="docutils literal notranslate"><span class="pre">a</span></code>. Measurement is shown in
 Fig. <a class="reference external" href="#fig:measure">[fig:measure]</a>.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Initialize, flip and measure an array of 10 qubits</span>
-<span class="n">qubit</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="n">qubits</span><span class="p">;</span>
+<span class="n">qubit</span> <span class="n">qubits</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
 <span class="n">bit</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="n">bits</span><span class="p">;</span>
 <span class="n">x</span> <span class="n">qubits</span><span class="p">;</span>
 <span class="n">bits</span> <span class="o">=</span> <span class="n">measure</span> <span class="n">qubits</span><span class="p">;</span>
@@ -654,7 +676,7 @@ which may not be directly accessible by the local controllers.</p>
 <h4>Low-level classical instructions<a class="headerlink" href="#low-level-classical-instructions" title="Permalink to this headline">¶</a></h4>
 <div class="section" id="generalities">
 <h5>Generalities<a class="headerlink" href="#generalities" title="Permalink to this headline">¶</a></h5>
-<p>All types support the assignment operator . The left-hand-side (LHS) and
+<p>All types support the assignment operator <code class="docutils literal notranslate"><span class="pre">=</span></code>. The left-hand-side (LHS) and
 right-hand-side (RHS) of the assignment operator must be of the same
 type. For real-time values assignment is by copy of the RHS value to the
 assigned variable on the LHS.</p>
@@ -672,10 +694,10 @@ assigned variable on the LHS.</p>
 <h5>Classical bits and registers<a class="headerlink" href="#classical-bits-and-registers" title="Permalink to this headline">¶</a></h5>
 <p>Classical registers and bits support bitwise operators and the
 corresponding assignment operators between registers of the same size:
-and , or , xor . They support left shift and right shift by an unsigned
+and <code class="docutils literal notranslate"><span class="pre">&amp;</span></code>, or <code class="docutils literal notranslate"><span class="pre">|</span></code>, xor <code class="docutils literal notranslate"><span class="pre">^</span></code>. They support left shift <code class="docutils literal notranslate"><span class="pre">&lt;&lt;</span></code> and right shift <code class="docutils literal notranslate"><span class="pre">&gt;&gt;</span></code> by an unsigned
 integer, and the corresponding assignment operators. The shift operators
-shift bits off the end. They also support not ,  <a class="footnote-reference brackets" href="#id4" id="id1">1</a>, and left and
-right circular shift, and , respectively.</p>
+shift bits off the end. They also support not <code class="docutils literal notranslate"><span class="pre">~</span></code>, <code class="docutils literal notranslate"><span class="pre">popcount``[1]_,</span> <span class="pre">and</span> <span class="pre">left</span> <span class="pre">and</span>
+<span class="pre">right</span> <span class="pre">circular</span> <span class="pre">shift,</span> <span class="pre">``rotl</span></code> and <code class="docutils literal notranslate"><span class="pre">rotr</span></code>, respectively.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">bit</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="n">a</span> <span class="o">=</span> <span class="s">&quot;10001111&quot;</span><span class="p">;</span>
 <span class="n">bit</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="n">b</span> <span class="o">=</span> <span class="s">&quot;01110000&quot;</span><span class="p">;</span>
 
@@ -691,8 +713,8 @@ right circular shift, and , respectively.</p>
 <p>Integers, fixed-point numbers, angles, bits, and classical registers can
 be compared (<span class="math notranslate nohighlight">\(&gt;\)</span>, <span class="math notranslate nohighlight">\(&gt;=\)</span>, <span class="math notranslate nohighlight">\(&lt;\)</span>, <span class="math notranslate nohighlight">\(&lt;=\)</span>, <span class="math notranslate nohighlight">\(==\)</span>,
 <span class="math notranslate nohighlight">\(!=\)</span>) and yield Boolean values. Boolean values support logical
-operators: and , or , not . The keyword tests if an integer belongs to
-an index set, for example returns if i equals 0 or 3 and otherwise.</p>
+operators: and <code class="docutils literal notranslate"><span class="pre">&amp;&amp;</span></code>, or <code class="docutils literal notranslate"><span class="pre">||</span></code>, not <code class="docutils literal notranslate"><span class="pre">!</span></code>. The keyword <code class="docutils literal notranslate"><span class="pre">in</span></code> tests if an integer belongs to
+an index set, for example <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">in</span> <span class="pre">{0,3}</span></code> returns <code class="docutils literal notranslate"><span class="pre">true</span></code> if i equals 0 or 3 and <code class="docutils literal notranslate"><span class="pre">false</span></code> otherwise.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span> <span class="n">a</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
 <span class="kt">int</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 <span class="n">fixed</span><span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">12</span><span class="p">]</span> <span class="n">c</span> <span class="o">=</span> <span class="mf">1.05</span><span class="p">;</span>
@@ -710,9 +732,9 @@ an index set, for example returns if i equals 0 or 3 and otherwise.</p>
 </div>
 <div class="section" id="integers">
 <h5>Integers<a class="headerlink" href="#integers" title="Permalink to this headline">¶</a></h5>
-<p>Integer types support addition , subtraction , multiplication, and
-division <a class="footnote-reference brackets" href="#id5" id="id2">2</a>; the corresponding assignments , , , and ; as well as
-increment and decrement .</p>
+<p>Integer types support addition <code class="docutils literal notranslate"><span class="pre">+</span></code>, subtraction <code class="docutils literal notranslate"><span class="pre">-</span></code>, multiplication <code class="docutils literal notranslate"><span class="pre">*</span></code>, and
+division[2]_ <code class="docutils literal notranslate"><span class="pre">/</span></code>; the corresponding assignments <code class="docutils literal notranslate"><span class="pre">+=</span></code>, <code class="docutils literal notranslate"><span class="pre">-=</span></code>, <code class="docutils literal notranslate"><span class="pre">*=</span></code>, and <code class="docutils literal notranslate"><span class="pre">/=</span></code>; as well as
+increment <code class="docutils literal notranslate"><span class="pre">++</span></code> and decrement <code class="docutils literal notranslate"><span class="pre">--</span></code>.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
 <span class="kt">int</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
 
@@ -737,8 +759,8 @@ multiplication, and division and the corresponding assignment operators.</p>
 </div>
 <div class="section" id="looping-and-branching">
 <h5>Looping and branching<a class="headerlink" href="#looping-and-branching" title="Permalink to this headline">¶</a></h5>
-<p>The statement branches to program if the Boolean evaluates to true and
-may optionally be followed by .</p>
+<p>The statement <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">(</span> <span class="pre">bool</span> <span class="pre">)</span> <span class="pre">{</span> <span class="pre">program</span> <span class="pre">}</span></code> branches to program if the Boolean evaluates to true and
+may optionally be followed by <code class="docutils literal notranslate"><span class="pre">else</span> <span class="pre">{</span> <span class="pre">program</span> <span class="pre">}</span></code>.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span> <span class="n">target</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
 <span class="n">qubit</span> <span class="n">a</span><span class="p">;</span>
 <span class="n">h</span> <span class="n">a</span><span class="p">;</span>
@@ -752,17 +774,23 @@ may optionally be followed by .</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>The statement loops over integer values in the indexset, assigning them
-to . The for loop body is not permitted to modify the loop variable of
+<p>The statement <code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">name</span> <span class="pre">in</span> <span class="pre">indexset</span> <span class="pre">{</span> <span class="pre">program</span> <span class="pre">}</span></code> loops over integer values in the indexset, assigning them
+to <code class="docutils literal notranslate"><span class="pre">name</span></code>. The for loop body is not permitted to modify the loop variable of
 the indexset.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span> <span class="n">b</span><span class="p">;</span>
+<span class="c1">// loop over a discrete set of values</span>
 <span class="k">for</span> <span class="n">i</span> <span class="n">in</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">}</span> <span class="p">{</span>
     <span class="n">b</span> <span class="o">+=</span> <span class="n">i</span><span class="p">;</span>
 <span class="p">}</span> <span class="c1">// b == 16</span>
+
+<span class="c1">// loop over every positive number from 0 to 20 using an indexset</span>
+<span class="k">for</span> <span class="n">i</span> <span class="n">in</span> <span class="p">[</span><span class="mi">0</span><span class="o">:</span><span class="mi">2</span><span class="o">:</span><span class="mi">20</span><span class="p">]</span> <span class="p">{</span>
+   <span class="c1">// do something</span>
+<span class="p">}</span>
 </pre></div>
 </div>
-<p>The statement executes program until the Boolean evaluates to
-false <a class="footnote-reference brackets" href="#id6" id="id3">3</a>. Variables in the loop condition statement may be modified
+<p>The statement <code class="docutils literal notranslate"><span class="pre">while</span> <span class="pre">(</span> <span class="pre">bool</span> <span class="pre">)</span> <span class="pre">{</span> <span class="pre">program</span> <span class="pre">}</span></code> executes program until the Boolean evaluates to
+false <a class="footnote-reference brackets" href="#id4" id="id1">3</a>. Variables in the loop condition statement may be modified
 within the while loop body.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">qubit</span> <span class="n">q</span><span class="p">;</span>
 <span class="n">bit</span> <span class="n">result</span><span class="p">;</span>
@@ -779,10 +807,10 @@ within the while loop body.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>A block can be exited with the statement . The statement can appear in
+<p>A block <code class="docutils literal notranslate"><span class="pre">{</span> <span class="pre">program</span> <span class="pre">}</span></code> can be exited with the statement <code class="docutils literal notranslate"><span class="pre">break;</span></code>. The statement <code class="docutils literal notranslate"><span class="pre">continue;</span></code> can appear in
 the body of a for or while loop. It returns control to the loop
-condition. The statement terminates the program. In all of the
-preceding, can also be replaced by a statement without the braces.</p>
+condition. The statement <code class="docutils literal notranslate"><span class="pre">end;</span></code> terminates the program. In all of the
+preceding, <code class="docutils literal notranslate"><span class="pre">{</span> <span class="pre">program</span> <span class="pre">}</span></code> can also be replaced by a statement without the braces.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 
 <span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">)</span> <span class="p">{</span>
@@ -808,7 +836,7 @@ preceding, can also be replaced by a statement without the braces.</p>
 <div class="section" id="kernel-function-calls">
 <h4>Kernel function calls<a class="headerlink" href="#kernel-function-calls" title="Permalink to this headline">¶</a></h4>
 <p>Kernel functions are declared by giving their signature using the
-statement where inputs is a comma-separated list of type names and
+statement <code class="docutils literal notranslate"><span class="pre">kernel</span> <span class="pre">name(inputs)-&gt;</span> <span class="pre">output;</span></code> where inputs is a comma-separated list of type names and
 output is a single type name. They can be functions of any number of
 arguments whose types correspond to the classical types of OpenQASM.
 Inputs are passed by value. They can return zero or one value whose type
@@ -817,23 +845,23 @@ multiple return values can be accommodated by concatenating registers.
 The type and size of each argument must be known at compile time to
 define data flow and enable scheduling. We do not address issues such as
 how the kernel functions are defined and registered.</p>
-<p>Kernel functions are invoked using the statement The functions are not
+<p>Kernel functions are invoked using the statement <code class="docutils literal notranslate"><span class="pre">name(inputs)</span> <span class="pre">-&gt;</span> <span class="pre">output;</span></code>. The functions are not
 required to be idempotent. They may change the state of the process
 providing the function. In our computational model, the kernel functions
 are assumed to run concurrently with other classical and quantum
 computations. The output of a kernel function can be assigned to a
 variable on declaration using the assignment operator rather than the
-arrow notation.</p>
+<code class="docutils literal notranslate"><span class="pre">-&gt;</span></code> arrow notation.</p>
 <dl class="footnote brackets">
-<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
-<dd><p>computes the Hamming weight of the input register.</p>
+<dt class="label" id="id2"><span class="brackets">1</span></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">popcount</span></code> computes the Hamming weight of the input register.</p>
 </dd>
-<dt class="label" id="id5"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dt class="label" id="id3"><span class="brackets">2</span></dt>
 <dd><p>If multiplication and division instructions are not available in
 hardware, they can be implemented by expanding into other
 instructions.</p>
 </dd>
-<dt class="label" id="id6"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id1">3</a></span></dt>
 <dd><p>This clearly allows users to write code that does not terminate. We
 do not discuss implementation details here, but one possibility is to
 compile into target code that imposes iteration limits</p>
@@ -843,16 +871,21 @@ compile into target code that imposes iteration limits</p>
 </div>
 <span id="document-language/subroutines"></span><div class="section" id="subroutines">
 <h3>Subroutines<a class="headerlink" href="#subroutines" title="Permalink to this headline">¶</a></h3>
-<p>Subroutines are declared using the statement . Zero or more quantum bits
-and registers are passed to the subroutine by reference or name in .
-Classical types are passed by value in . The subroutines return up to
+<p>Subroutines are declared using the statement <code class="docutils literal notranslate"><span class="pre">def</span> <span class="pre">name(parameters)</span> <span class="pre">qargs</span> <span class="pre">-&gt;</span> <span class="pre">output</span> <span class="pre">{</span> <span class="pre">body</span> <span class="pre">}</span></code>.
+Zero or more quantum bits
+and registers are passed to the subroutine by reference or name in <code class="docutils literal notranslate"><span class="pre">qargs</span></code>.
+Classical types are passed by value in <code class="docutils literal notranslate"><span class="pre">parameters</span></code>. The subroutines return up to
 one classical type. All arguments are declared together with their type,
-for example would define a quantum bit argument named . The output of a
+for example <code class="docutils literal notranslate"><span class="pre">qubit:</span> <span class="pre">ancilla</span></code> would define a quantum bit argument named <code class="docutils literal notranslate"><span class="pre">ancilla</span></code>. The output of a
 subroutine can be assigned to a variable on declaration using the
-assignment operator rather than the arrow notation.</p>
+assignment operator rather than the <code class="docutils literal notranslate"><span class="pre">-&gt;</span></code> arrow notation.</p>
 <p>Using subroutines, we can define an X-basis measurement with the program
-. We can also define more general classes of single-qubit measurements
-as . The type declarations are necessary if we want to mix qubit and
+<code class="docutils literal notranslate"><span class="pre">def</span> <span class="pre">xmeasure</span> <span class="pre">qubit:q</span> <span class="pre">-&gt;</span> <span class="pre">bit</span> <span class="pre">{</span> <span class="pre">h</span> <span class="pre">q;</span> <span class="pre">return</span> <span class="pre">measure</span> <span class="pre">q;</span> <span class="pre">}</span></code>.
+We can also define more general classes of single-qubit measurements
+as
+<code class="docutils literal notranslate"><span class="pre">def</span> <span class="pre">pmeasure(angle[32]:</span> <span class="pre">theta)</span> <span class="pre">qubit:q</span> <span class="pre">-&gt;</span> <span class="pre">bit</span> <span class="pre">{</span> <span class="pre">rz(theta)</span> <span class="pre">q;</span> <span class="pre">h</span> <span class="pre">q;</span> <span class="pre">return</span>
+<span class="pre">measure</span> <span class="pre">q;</span> <span class="pre">}</span></code>.
+The type declarations are necessary if we want to mix qubit and
 register arguments. For example, we might define a parity check
 subroutine that takes qubits and registers</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">def</span> <span class="n">xcheck</span> <span class="n">qubit</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">:</span><span class="n">d</span><span class="p">,</span> <span class="nl">qubit</span><span class="p">:</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="n">bit</span> <span class="p">{</span>
@@ -918,22 +951,22 @@ these gates evenly to implement a higher-order echo decoupling sequence”
 or “implement this gate as late as possible”.</p>
 <div class="section" id="length-and-stretch-types">
 <h4>length and stretch types<a class="headerlink" href="#length-and-stretch-types" title="Permalink to this headline">¶</a></h4>
-<p>The type is used denote duration of time. Lengths are positive numbers
+<p>The <code class="docutils literal notranslate"><span class="pre">length</span></code> type is used denote duration of time. Lengths are positive numbers
 that are manipulated at compile time. Lengths have units which can be
 any of the following:</p>
 <ul class="simple">
-<li><p>SI units of time, such as</p></li>
-<li><p>Backend-dependent unit, , equivalent to the duration of one waveform
+<li><p>SI units of time, such as <code class="docutils literal notranslate"><span class="pre">ns,</span> <span class="pre">µs,</span> <span class="pre">ms,</span> <span class="pre">s</span></code></p></li>
+<li><p>Backend-dependent unit, <code class="docutils literal notranslate"><span class="pre">dt</span></code>, equivalent to the duration of one waveform
 sample on the backend</p></li>
 </ul>
 <p>It is often useful to reference the duration of other parts of the
 circuit. For example, we may want to delay a gate for twice the duration
 of a particular sub-circuit, without knowing the exact value to which
 that duration will resolve. Alternatively, we may want to calibrate a
-gate using some pulses, and use its duration as a new in order to delay
-other parts of the circuit. The intrinsic function can be used for this
+gate using some pulses, and use its duration as a new <code class="docutils literal notranslate"><span class="pre">length</span></code> in order to delay
+other parts of the circuit. The <code class="docutils literal notranslate"><span class="pre">lengthof()</span></code> intrinsic function can be used for this
 type of referential timing.</p>
-<p>Below are some examples of values of type .</p>
+<p>Below are some examples of values of type <code class="docutils literal notranslate"><span class="pre">length</span></code>.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// fixed length, in standard units</span>
 <span class="n">length</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">300</span><span class="n">ns</span><span class="p">;</span>
 <span class="c1">// fixed length, backend dependent</span>
@@ -944,16 +977,16 @@ type of referential timing.</p>
 <span class="n">length</span> <span class="n">d</span> <span class="o">=</span> <span class="n">lengthof</span><span class="p">(</span><span class="n">box</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>We further introduce a type which is a sub-type of . Stretchable lengths
+<p>We further introduce a <code class="docutils literal notranslate"><span class="pre">stretch</span></code> type which is a sub-type of <code class="docutils literal notranslate"><span class="pre">length</span></code>. Stretchable lengths
 have variable non-negative length that is permitted to grow as necessary
 to satisfy constraints. Stretch variables are resolved at compile time
 into target-appropriate durations that satisfy a user’s specified design
 intent.</p>
 <p>Instructions whose duration is specified in this way become “stretchy”,
 meaning they can extend beyond their “natural length” to fill a span of
-time. Stretchy s are the most obvious use case, but this can be extended
+time. Stretchy <code class="docutils literal notranslate"><span class="pre">delay</span></code>’s are the most obvious use case, but this can be extended
 to other instructions too, e.g. rotating a spectator qubit while another
-gate is in progress. Similarly, a whose definition contains stretchy
+gate is in progress. Similarly, a <code class="docutils literal notranslate"><span class="pre">gate</span></code> whose definition contains stretchy
 delays will be perceived as a stretchy gate by other parts of the
 program.</p>
 <p>For example, in order to ensure a sequence of gates between two barriers
@@ -982,10 +1015,10 @@ the stretchy delays (Figure <a class="reference external" href="#fig:alignment"
 </div>
 <p>[fig:leftalign]</p>
 <p>[fig:leftalignresolved]</p>
-<p>Lastly, we distinguish different “orders” of stretch via types, where N
-is an integer between 0 to 255. is an alias for the regular . Higher
+<p>Lastly, we distinguish different “orders” of stretch via <code class="docutils literal notranslate"><span class="pre">stretchN</span></code> types, where N
+is an integer between 0 to 255. <code class="docutils literal notranslate"><span class="pre">stretch0</span></code> is an alias for the regular <code class="docutils literal notranslate"><span class="pre">stretch</span></code>. Higher
 order stretches will suppress lower order stretches whenever they appear
-in the same scope on the same qubits. A keyword is defined as an
+in the same scope on the same qubits. A <code class="docutils literal notranslate"><span class="pre">stretchinf</span></code> keyword is defined as an
 infinitely stretchable length. It will always take precedence, and will
 not changed if arithmetic operations are done on it. This is most useful
 as a “don’t care” mechanism to specify delays that will just fill
@@ -1001,7 +1034,7 @@ whatever gap is present.</p>
 <span class="n">delay</span><span class="p">[</span><span class="n">stretchinf</span><span class="p">];</span>
 </pre></div>
 </div>
-<p>The concepts of and are inspired by the concept of “boxes and glues” in
+<p>The concepts of <code class="docutils literal notranslate"><span class="pre">box</span></code> and <code class="docutils literal notranslate"><span class="pre">stretch</span></code> are inspired by the concept of “boxes and glues” in
 the TeX language <span class="bibtex" id="id1">[knuth1984texbook]</span>. This similarity
 is natural; TeXaims to resolve the spacing between characters in order
 to typeset a page, and the size of characters depend on the backend
@@ -1010,7 +1043,7 @@ instructions in order to meet high-level design intents, while the true
 length of operations depend on the backend and compilation context.
 There are however some key differences. Quantum operations can be
 non-local, meaning the lengths set on one qubit can have side effects on
-other qubits. The definition of -type variables and ability to define
+other qubits. The definition of <code class="docutils literal notranslate"><span class="pre">length</span></code>-type variables and ability to define
 multi-qubit stretches is intended to alleviate potential problems from
 these side effects. Also contrary to TeX, we prohibit overlapping gates.</p>
 </div>
@@ -1029,26 +1062,26 @@ including stretches, will be resolved to constants.</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="delays-and-other-lengthed-instructions">
-<h4>Delays (and other lengthed instructions)<a class="headerlink" href="#delays-and-other-lengthed-instructions" title="Permalink to this headline">¶</a></h4>
-<p>OpenQASM and OpenPulse have a instruction, whose duration is defined by
-a . If the length passed to the delay contains stretch, it will become a
+<div class="section" id="delays-and-other-lengthened-instructions">
+<h4>Delays (and other lengthened instructions)<a class="headerlink" href="#delays-and-other-lengthened-instructions" title="Permalink to this headline">¶</a></h4>
+<p>OpenQASM and OpenPulse have a <code class="docutils literal notranslate"><span class="pre">delay</span></code> instruction, whose duration is defined by
+a <code class="docutils literal notranslate"><span class="pre">length</span></code>. If the length passed to the delay contains stretch, it will become a
 stretchy delay. We use square bracket notation to pass these length
 parameters, to distinguish them from regular parameters (the compiler
 will resolve these square-bracket parameters when resolving timing ).</p>
-<p>Even though a instruction implements the identity channel in the ideal
-case, it is intended to provide explicit timing. Therefore an explicit
+<p>Even though a <code class="docutils literal notranslate"><span class="pre">delay</span></code> instruction implements the identity channel in the ideal
+case, it is intended to provide explicit timing. Therefore an explicit <code class="docutils literal notranslate"><span class="pre">delay</span></code>
 instruction will prevent commutation of gates that would otherwise
 commute. For example in
 Figure <a class="reference external" href="#fig:delaycommute">[fig:delaycommute]</a>a, there will be an
-implicit delay between the ‘‘ gates on qubit 0. However, the ‘‘ gate is
+implicit delay between the <code class="docutils literal notranslate"><span class="pre">cx</span></code> gates on qubit 0. However, the <code class="docutils literal notranslate"><span class="pre">rz</span></code> gate is
 still free to commute on that qubit, because the delay is implicit. Once
 the delay becomes explicit (perhaps at lower stages of compilation),
 gate commutation is prohibited
 (Figure <a class="reference external" href="#fig:delaycommute">[fig:delaycommute]</a>b).</p>
 <p>Instructions other than delay can also have variable duration, if they
-are explicitly defined as such. They can be called by passing a valid as
-their duration. Consider for example a rotation called that is applied
+are explicitly defined as such. They can be called by passing a valid <code class="docutils literal notranslate"><span class="pre">length</span></code> as
+their duration. Consider for example a rotation called <code class="docutils literal notranslate"><span class="pre">rotary</span></code> that is applied
 for the entire duration of some other gate.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="n">amp</span> <span class="o">=</span> <span class="cm">/* number */</span><span class="p">;</span>
 <span class="n">stretch</span> <span class="n">a</span><span class="p">;</span>
@@ -1056,11 +1089,11 @@ for the entire duration of some other gate.</p>
 <span class="n">rotary</span><span class="p">(</span><span class="n">amp</span><span class="p">)[</span><span class="n">a</span><span class="p">]</span> <span class="n">q</span><span class="p">;</span>       <span class="c1">// a rotation that will stretch as needed</span>
 </pre></div>
 </div>
-<p>A multi-qubit instruction is <em>not</em> equivalent to multiple single-qubit
-instructions. Instead a multi-qubit delay acts as a synchronization
+<p>A multi-qubit <code class="docutils literal notranslate"><span class="pre">delay</span></code> instruction is <em>not</em> equivalent to multiple single-qubit
+<code class="docutils literal notranslate"><span class="pre">delay</span></code> instructions. Instead a multi-qubit delay acts as a synchronization
 point on the qubits, where the delay begins from the latest non-idle
 time across all qubits, and ends simultaneously across all qubits. For
-this reason, a instruction is exactly equivalent to a of a length zero
+this reason, a <code class="docutils literal notranslate"><span class="pre">barrier</span></code> instruction is exactly equivalent to a <code class="docutils literal notranslate"><span class="pre">delay</span></code> of a length zero
 on the qubits involved.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">cx</span> <span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
 <span class="n">cx</span> <span class="n">q</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
@@ -1068,7 +1101,7 @@ on the qubits involved.</p>
 <span class="n">delay</span><span class="p">[</span><span class="mi">200</span><span class="n">dt</span><span class="p">]</span> <span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="o">:</span><span class="mi">3</span><span class="p">];</span>
 </pre></div>
 </div>
-<p>A can be composed of positive or negative natural length, and of
+<p>A <code class="docutils literal notranslate"><span class="pre">length</span></code> can be composed of positive or negative natural length, and of
 positive stretch. After resolving the stretch, the instruction must end
 up with non-negative duration.</p>
 <p>For example, the code below inserts a dynamical decoupling sequence
@@ -1099,7 +1132,7 @@ to properly take into account the finite length of each gate.</p>
 </div>
 <div class="section" id="boxed-expressions">
 <h4>Boxed expressions<a class="headerlink" href="#boxed-expressions" title="Permalink to this headline">¶</a></h4>
-<p>We introduce a expression for scoping a particular part of the circuit.
+<p>We introduce a <code class="docutils literal notranslate"><span class="pre">box</span></code> expression for scoping a particular part of the circuit.
 A boxed subcircuit can never be inlined (until target code generation
 time), and optimizations across the boundary of a box are forbidden. The
 contents inside the box can be optimized. The contents around the box
@@ -1107,11 +1140,11 @@ can be optimized too, e.g. it is permissible to commute a gate past a
 box by knowing the unitary implemented by the box. Delays that are
 within a box are implementation details of the box; they are invisible
 to the outside scope and therefore do not prevent commutation.</p>
-<p>We introduce a expression for labeling a box. We primarily use this to
+<p>We introduce a <code class="docutils literal notranslate"><span class="pre">boxas</span></code> expression for labeling a box. We primarily use this to
 later refer to the length of this box. Boxed expressions are good for
 this because their contents are isolated and cannot be combined with
 gates outside the box. Therefore, no matter how the contents of the box
-get optimized, the has a well-defined meaning.</p>
+get optimized, the <code class="docutils literal notranslate"><span class="pre">lengthof(boxlabel</span></code> has a well-defined meaning.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">boxas</span> <span class="n">mybox</span> <span class="p">{</span>
     <span class="n">cx</span> <span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
     <span class="n">delay</span><span class="p">[</span><span class="mi">200</span><span class="n">ns</span><span class="p">]</span> <span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
@@ -1120,7 +1153,7 @@ get optimized, the has a well-defined meaning.</p>
 <span class="n">cx</span> <span class="n">q</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
 </pre></div>
 </div>
-<p>We introduce a expression. The contents of it will be boxed, and in
+<p>We introduce a <code class="docutils literal notranslate"><span class="pre">boxto</span></code> expression. The contents of it will be boxed, and in
 addition a total duration will be assigned to the box. This is useful
 for conditionals where the box will declare a hard deadline. The natural
 length of the box must be smaller than the declared boxto duration,
@@ -1139,8 +1172,8 @@ length and the natural length.</p>
 </div>
 <div class="section" id="barrier-instruction">
 <h4>Barrier instruction<a class="headerlink" href="#barrier-instruction" title="Permalink to this headline">¶</a></h4>
-<p>The instruction of OpenQASM 2 prevents commutation and gate reordering
-on a set of qubits across its source line. The syntax is and can be seen
+<p>The <code class="docutils literal notranslate"><span class="pre">barrier</span></code> instruction of OpenQASM 2 prevents commutation and gate reordering
+on a set of qubits across its source line. The syntax is <code class="docutils literal notranslate"><span class="pre">barrier</span> <span class="pre">qregs|qubits;</span></code> and can be seen
 in the following example</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">cx</span> <span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
 <span class="n">h</span> <span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
@@ -1152,7 +1185,7 @@ in the following example</p>
 </pre></div>
 </div>
 <p>This will prevent an attempt to combine the CNOT gates but will not
-constrain the pair of gates, which might be executed before or after the
+constrain the pair of <code class="docutils literal notranslate"><span class="pre">h</span> <span class="pre">s[0];</span></code> gates, which might be executed before or after the
 barrier, or cancelled by a compiler.</p>
 </div>
 </div>
@@ -1173,8 +1206,8 @@ and measurement with user-selectable pulse grammar. A future document
 will define a textualized representation of one such grammar, OpenPulse.
 Here we restrict ourselves to defining the necessary interfaces within
 OpenQASM to these pulse-level definitions of gates and measurement.</p>
-<p>The entry point to such gate and measurement definitions is the keyword
-analogous to the keyword, but where the body specifies a pulse-level
+<p>The entry point to such gate and measurement definitions is the <code class="docutils literal notranslate"><span class="pre">defcal</span></code> keyword
+analogous to the <code class="docutils literal notranslate"><span class="pre">gate</span></code> keyword, but where the <code class="docutils literal notranslate"><span class="pre">defcal</span></code> body specifies a pulse-level
 instruction sequence on <em>physical</em> qubits, e.g.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">defcal</span> <span class="nf">rz</span><span class="p">(</span><span class="n">angle</span><span class="p">[</span><span class="mi">20</span><span class="p">]</span><span class="o">:</span><span class="n">theta</span><span class="p">)</span> <span class="o">%</span><span class="n">q</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
 <span class="n">defcal</span> <span class="n">measure</span> <span class="o">%</span><span class="n">q</span> <span class="o">-&gt;</span> <span class="n">bit</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
@@ -1214,22 +1247,22 @@ the most specific definition found for a given operation. Thus, given,</p>
 </ol>
 <p>the operation <code class="docutils literal notranslate"><span class="pre">rx(pi/2)</span> <span class="pre">%0</span></code> would match to (3), <code class="docutils literal notranslate"><span class="pre">rx(pi)</span> <span class="pre">%0</span></code> would
 match (2), <code class="docutils literal notranslate"><span class="pre">rx(pi/2)</span> <span class="pre">%1</span></code> would match (1).</p>
-<p>Users specify the grammar used inside blocks with a declaration, or by
-an optional grammar string in a definition, e.g.</p>
+<p>Users specify the grammar used inside <code class="docutils literal notranslate"><span class="pre">defcal</span></code> blocks with a <code class="docutils literal notranslate"><span class="pre">defcalgrammar</span> <span class="pre">&quot;name&quot;</span></code> declaration, or by
+an optional grammar string in a <code class="docutils literal notranslate"><span class="pre">defcal</span></code> definition, e.g.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">defcalgrammar</span> <span class="s">&quot;openpulse&quot;</span><span class="p">;</span>
 <span class="n">defcal</span> <span class="s">&quot;openpulse&quot;</span> <span class="n">measure</span> <span class="o">%</span><span class="n">q</span> <span class="o">-&gt;</span> <span class="n">bit</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
 </pre></div>
 </div>
-<p>are two equivalent ways to specify that the definition uses the grammar.</p>
-<p>Note that and communicate orthogonal information to the compiler. s
+<p>are two equivalent ways to specify that the <code class="docutils literal notranslate"><span class="pre">measure</span></code> definition uses the <code class="docutils literal notranslate"><span class="pre">&quot;openpulse&quot;</span></code> grammar.</p>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">defcal</span></code> and <code class="docutils literal notranslate"><span class="pre">gate</span></code> communicate orthogonal information to the compiler. <code class="docutils literal notranslate"><span class="pre">gate</span></code>’s
 define unitary transformation rules to the compiler. The compiler may
 freely invoke such rules on operations while preserving the structure of
-a circuit as a collection of s and s. The declarations instead define
-elements of a symbol lookup table. As soon as the compiler replaces a
-with a definition, we have changed the fundamental structure of the
-circuit. Most of the time symbols in the table will also have
-corresponding definitions. However, if a userprovides a for a symbol
-without a corresponding , then we treat such operations like the gates
+a circuit as a collection of <code class="docutils literal notranslate"><span class="pre">gate</span></code>’s and <code class="docutils literal notranslate"><span class="pre">subroutine</span></code>’s. The <code class="docutils literal notranslate"><span class="pre">defcal</span></code> declarations instead define
+elements of a symbol lookup table. As soon as the compiler replaces a <code class="docutils literal notranslate"><span class="pre">gate</span></code>
+with a <code class="docutils literal notranslate"><span class="pre">defcal</span></code> definition, we have changed the fundamental structure of the
+circuit. Most of the time symbols in the <code class="docutils literal notranslate"><span class="pre">defcal</span></code> table will also have
+corresponding <code class="docutils literal notranslate"><span class="pre">gate</span></code> definitions. However, if a user provides a <code class="docutils literal notranslate"><span class="pre">defcal</span></code> for a symbol
+without a corresponding <code class="docutils literal notranslate"><span class="pre">gate</span></code>, then we treat such operations like the <code class="docutils literal notranslate"><span class="pre">opaque</span></code> gates
 of prior versions of OpenQASM.</p>
 </div>
 </div>
