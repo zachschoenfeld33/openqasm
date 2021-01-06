@@ -48,11 +48,11 @@ these gates evenly to implement a higher-order echo decoupling sequence”
 or “implement this gate as late as possible”.</p>
 <div class="section" id="length-and-stretch-types">
 <h2>length and stretch types<a class="headerlink" href="#length-and-stretch-types" title="Permalink to this headline">¶</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">length</span></code> type is used denote duration of time. Lengths are positive numbers
-that are manipulated at compile time. Lengths have units which can be
+<p>The <code class="docutils literal notranslate"><span class="pre">length</span></code> type is used denote duration of time. Lengths are positive real numbers
+that are manipulated at compile time. Lengths must be followed by time units which can be
 any of the following:</p>
 <ul class="simple">
-<li><p>SI units of time, such as <code class="docutils literal notranslate"><span class="pre">ns,</span> <span class="pre">µs,</span> <span class="pre">ms,</span> <span class="pre">s</span></code></p></li>
+<li><p>SI units of time: <code class="docutils literal notranslate"><span class="pre">ns,</span> <span class="pre">µs</span> <span class="pre">or</span> <span class="pre">us,</span> <span class="pre">ms,</span> <span class="pre">s</span></code></p></li>
 <li><p>Backend-dependent unit, <code class="docutils literal notranslate"><span class="pre">dt</span></code>, equivalent to the duration of one waveform
 sample on the backend</p></li>
 </ul>
