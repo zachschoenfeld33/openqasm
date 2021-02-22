@@ -107,9 +107,10 @@ alignment b) alignment of a short gate at the 1/3 point of a longer gate.</span>
 <p>For example, in order to ensure a sequence of gates between two barriers
 will be left-aligned (<a class="reference internal" href="#fig-alignment"><span class="std std-numref">Fig. 6</span></a>a),
 whatever their actual durations may be, we can do the following:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">barrier</span> <span class="n">q</span><span class="p">;</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">qubit</span> <span class="n">q</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span>
+<span class="n">barrier</span> <span class="n">q</span><span class="p">;</span>
 <span class="n">cx</span> <span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
-<span class="n">u</span> <span class="n">q</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+<span class="n">U</span><span class="p">(</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="n">q</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
 <span class="n">cx</span> <span class="n">q</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
 <span class="n">delay</span><span class="p">[</span><span class="n">stretchinf</span><span class="p">]</span> <span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
 <span class="n">delay</span><span class="p">[</span><span class="n">stretchinf</span><span class="p">]</span> <span class="n">q</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
@@ -119,7 +120,8 @@ whatever their actual durations may be, we can do the following:</p>
 </div>
 <p>We can further control the exact alignment by giving relative weights to
 the stretchy delays (<a class="reference internal" href="#fig-alignment"><span class="std std-numref">Fig. 6</span></a>b):</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">stretch</span> <span class="n">g</span><span class="p">;</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">qubit</span> <span class="n">q</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span>
+<span class="n">stretch</span> <span class="n">g</span><span class="p">;</span>
 <span class="n">barrier</span> <span class="n">q</span><span class="p">;</span>
 <span class="n">cx</span> <span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
 <span class="n">delay</span><span class="p">[</span><span class="n">g</span><span class="p">];</span>
@@ -401,7 +403,7 @@ barrier, or cancelled by a compiler.</p>
 <li class="toctree-l2"><a class="reference internal" href="pulses.html">Pulse-level descriptions of gates and measurement</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../grammar/index.html">Grammar</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../grammar/index.html">OpenQasm 3.0 Grammar</a></li>
 </ul>
 
 <div class="relations">
@@ -441,7 +443,7 @@ barrier, or cancelled by a compiler.</p>
       &copy;2017-2020, Andrew W. Cross, Lev S. Bishop, John A. Smolin, Jay M. Gambetta.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.4.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.5.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
