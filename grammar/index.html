@@ -744,7 +744,7 @@
 <span class="w">    </span><span class="p">;</span><span class="w"></span>
 
 <span class="nl">quantumGateSignature</span><span class="w"></span>
-<span class="w">    </span><span class="p">:</span><span class="w"> </span><span class="no">Identifier</span><span class="w"> </span><span class="o">(</span><span class="w"> </span><span class="no">LPAREN</span><span class="w"> </span><span class="nv">classicalArgumentList</span><span class="o">?</span><span class="w"> </span><span class="no">RPAREN</span><span class="w"> </span><span class="o">)?</span><span class="w"> </span><span class="nv">identifierList</span><span class="w"></span>
+<span class="w">    </span><span class="p">:</span><span class="w"> </span><span class="o">(</span><span class="w"> </span><span class="no">Identifier</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;CX&#39;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;U&#39;</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="w"> </span><span class="no">LPAREN</span><span class="w"> </span><span class="nv">identifierList</span><span class="o">?</span><span class="w"> </span><span class="no">RPAREN</span><span class="w"> </span><span class="o">)?</span><span class="w"> </span><span class="nv">identifierList</span><span class="w"></span>
 <span class="w">    </span><span class="p">;</span><span class="w"></span>
 
 <span class="nl">quantumBlock</span><span class="w"></span>
@@ -995,13 +995,13 @@
 <span class="w">    </span><span class="p">;</span><span class="w"></span>
 
 <span class="nl">calibrationDefinition</span><span class="w"></span>
-<span class="w">    </span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;defcal&#39;</span><span class="w"> </span><span class="nv">calibrationGrammar</span><span class="o">?</span><span class="w"> </span><span class="no">Identifier</span><span class="w"></span>
+<span class="w">    </span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;defcal&#39;</span><span class="w"> </span><span class="no">Identifier</span><span class="w"></span>
 <span class="w">    </span><span class="o">(</span><span class="w"> </span><span class="no">LPAREN</span><span class="w"> </span><span class="nv">calibrationArgumentList</span><span class="o">?</span><span class="w"> </span><span class="no">RPAREN</span><span class="w"> </span><span class="o">)?</span><span class="w"> </span><span class="nv">identifierList</span><span class="w"></span>
 <span class="w">    </span><span class="nv">returnSignature</span><span class="o">?</span><span class="w"> </span><span class="no">LBRACE</span><span class="w"> </span><span class="o">.*?</span><span class="w"> </span><span class="no">RBRACE</span><span class="w">  </span><span class="c">// for now, match anything inside body</span><span class="w"></span>
 <span class="w">    </span><span class="p">;</span><span class="w"></span>
 
 <span class="nl">calibrationGrammar</span><span class="w"></span>
-<span class="w">    </span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;&quot;openpulse&quot;&#39;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="no">StringLiteral</span><span class="w"> </span><span class="c">// currently: pulse grammar string can be anything</span><span class="w"></span>
+<span class="w">    </span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;&quot;openpulse&quot;&#39;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="no">StringLiteral</span><span class="w">  </span><span class="c">// currently: pulse grammar string can be anything</span><span class="w"></span>
 <span class="w">    </span><span class="p">;</span><span class="w"></span>
 
 <span class="nl">calibrationArgumentList</span><span class="w"></span>
@@ -1040,7 +1040,7 @@
 
 <span class="k">fragment</span><span class="w"> </span><span class="nl">ValidUnicode</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="x">\p{Lu}\p{Ll}\p{Lt}\p{Lm}\p{Lo}\p{Nl}</span><span class="p">]</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="c">// valid unicode chars</span><span class="w"></span>
 <span class="k">fragment</span><span class="w"> </span><span class="nl">Letter</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="x">A-Za-z</span><span class="p">]</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
-<span class="k">fragment</span><span class="w"> </span><span class="nl">FirstIdCharacter</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;_&#39;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;%&#39;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="no">ValidUnicode</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="no">Letter</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="k">fragment</span><span class="w"> </span><span class="nl">FirstIdCharacter</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;_&#39;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;$&#39;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="no">ValidUnicode</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="no">Letter</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="k">fragment</span><span class="w"> </span><span class="nl">GeneralIdCharacter</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">FirstIdCharacter</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="no">Integer</span><span class="p">;</span><span class="w"></span>
 
 <span class="nl">Identifier</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">FirstIdCharacter</span><span class="w"> </span><span class="no">GeneralIdCharacter</span><span class="o">*</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
