@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
     <title>Types and Casting &#8212; OpenQASM Live Specification  documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
@@ -33,9 +34,9 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="types-and-casting">
+  <section id="types-and-casting">
 <h1>Types and Casting<a class="headerlink" href="#types-and-casting" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="generalities">
+<section id="generalities">
 <h2>Generalities<a class="headerlink" href="#generalities" title="Permalink to this headline">¶</a></h2>
 <p>Variable identifiers must begin with a letter [A-Za-z], an underscore, a
 percent sign, or an element from the Unicode character categories
@@ -56,10 +57,10 @@ classical representations since OpenQASM operates at the intersection of
 gates/analog control and digital feedback and we need to be able to
 explicitly transform types to cross these boundaries. Classical types
 are scoped to the braces within which they are declared.</p>
-</div>
-<div class="section" id="quantum-types">
+</section>
+<section id="quantum-types">
 <h2>Quantum types<a class="headerlink" href="#quantum-types" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="qubits">
+<section id="qubits">
 <h3>Qubits<a class="headerlink" href="#qubits" title="Permalink to this headline">¶</a></h3>
 <p>There is a quantum bit (<code class="docutils literal notranslate"><span class="pre">qubit</span></code>) type that is interpreted as a reference to a
 two-level subsystem of a quantum state. Quantum registers are static
@@ -75,8 +76,8 @@ Qubits cannot be declared within gates or subroutines. This simplifies OpenQASM
 significantly since there is no need for quantum memory management.
 However, it also means that users or compiler have to explicitly manage
 the quantum memory.</p>
-</div>
-<div class="section" id="physical-qubits">
+</section>
+<section id="physical-qubits">
 <h3>Physical Qubits<a class="headerlink" href="#physical-qubits" title="Permalink to this headline">¶</a></h3>
 <p>While program qubits can be named, hardware qubits are referenced only
 by the syntax <code class="docutils literal notranslate"><span class="pre">$[NUM]</span></code>. For an <code class="docutils literal notranslate"><span class="pre">n</span></code> qubit system, we have physical qubit
@@ -93,11 +94,11 @@ qubit qubit_array[20];
 CX $0, $1;
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="classical-types">
+</section>
+</section>
+<section id="classical-types">
 <h2>Classical types<a class="headerlink" href="#classical-types" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="classical-bits-and-registers">
+<section id="classical-bits-and-registers">
 <h3>Classical bits and registers<a class="headerlink" href="#classical-bits-and-registers" title="Permalink to this headline">¶</a></h3>
 <p>There is a classical bit type that takes values 0 or 1. Classical
 registers are static arrays of bits. The classical registers model part
@@ -117,8 +118,8 @@ bit is on the right.</p>
 <span class="n">bit</span> <span class="n">name</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;00001111&quot;</span><span class="p">;</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="integers">
+</section>
+<section id="integers">
 <h3>Integers<a class="headerlink" href="#integers" title="Permalink to this headline">¶</a></h3>
 <p>There are n-bit signed and unsigned integers. The statements <code class="docutils literal notranslate"><span class="pre">int[size]</span> <span class="pre">name;</span></code> and <code class="docutils literal notranslate"><span class="pre">uint[size]</span> <span class="pre">name;</span></code> declare
 signed 1:n-1:0 and unsigned 0:n:0 integers of the given size. The sizes
@@ -138,8 +139,8 @@ one another.</p>
 <span class="n">my_int</span> <span class="o">=</span> <span class="kt">int</span><span class="p">[</span><span class="mi">16</span><span class="p">](</span><span class="n">my_uint</span><span class="p">);</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="signed-fixed-point-numbers">
+</section>
+<section id="signed-fixed-point-numbers">
 <h3>Signed fixed-point numbers<a class="headerlink" href="#signed-fixed-point-numbers" title="Permalink to this headline">¶</a></h3>
 <p>There are <code class="docutils literal notranslate"><span class="pre">1:m:f</span></code> fixed-point numbers with <code class="docutils literal notranslate"><span class="pre">m</span></code> integer bits, <code class="docutils literal notranslate"><span class="pre">f</span></code> fractional bits, and 1
 sign bit. The statement <code class="docutils literal notranslate"><span class="pre">fixed[m,</span> <span class="pre">f]</span> <span class="pre">name;</span></code> declares a <code class="docutils literal notranslate"><span class="pre">1:m:f</span></code> fixed-point number.</p>
@@ -150,8 +151,8 @@ sign bit. The statement <code class="docutils literal notranslate"><span class="
 <span class="n">fixed</span><span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">24</span><span class="p">]</span> <span class="n">my_fixed</span> <span class="o">=</span> <span class="mf">-7.0625</span><span class="p">;</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="floating-point-numbers">
+</section>
+<section id="floating-point-numbers">
 <h3>Floating point numbers<a class="headerlink" href="#floating-point-numbers" title="Permalink to this headline">¶</a></h3>
 <p>IEEE 754 floating point registers may be declared with <code class="docutils literal notranslate"><span class="pre">float[size]</span> <span class="pre">name;</span></code>, where <code class="docutils literal notranslate"><span class="pre">float[64]</span></code> would
 indicate a standard double-precision float. Note that some hardware
@@ -160,8 +161,8 @@ vendors may not support manipulating these values at run-time.</p>
 float[32] my_float = π;
 </pre></div>
 </div>
-</div>
-<div class="section" id="fixed-point-angles">
+</section>
+<section id="fixed-point-angles">
 <h3>Fixed-point angles<a class="headerlink" href="#fixed-point-angles" title="Permalink to this headline">¶</a></h3>
 <p>Fixed-point angles are interpreted as 2π times a 0:1:n-1
 fixed-point number. This represents angles in the interval
@@ -179,8 +180,8 @@ float[32] float_pi = π;
 angle[20](float_pi / 2);
 </pre></div>
 </div>
-</div>
-<div class="section" id="boolean-types">
+</section>
+<section id="boolean-types">
 <h3>Boolean types<a class="headerlink" href="#boolean-types" title="Permalink to this headline">¶</a></h3>
 <p>There is a Boolean type <code class="docutils literal notranslate"><span class="pre">bool</span> <span class="pre">name;</span></code> that takes values <code class="docutils literal notranslate"><span class="pre">true</span></code> or <code class="docutils literal notranslate"><span class="pre">false</span></code>. Qubit measurement results
 can be converted from a classical <code class="docutils literal notranslate"><span class="pre">bit</span></code> type to a Boolean using <code class="docutils literal notranslate"><span class="pre">bool(c)</span></code>, where 1 will
@@ -191,8 +192,8 @@ be true and 0 will be false.</p>
 <span class="n">my_bool</span> <span class="o">=</span> <span class="kt">bool</span><span class="p">(</span><span class="n">my_bit</span><span class="p">);</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="real-constants">
+</section>
+<section id="real-constants">
 <h3>Real constants<a class="headerlink" href="#real-constants" title="Permalink to this headline">¶</a></h3>
 <p>To support mathematical expressions, there are immutable real constants
 that are represented as double precision floating point numbers. On
@@ -260,8 +261,8 @@ float[32] pi_by_2_val = float(pi_by_2)
 <p>Note that <cite>e</cite> is a valid identifier. <cite>e/E</cite> are also used in scientifier notation where appropriate.
 Types related to timing
 ———————–</p>
-</div>
-<div class="section" id="length">
+</section>
+<section id="length">
 <h3>length<a class="headerlink" href="#length" title="Permalink to this headline">¶</a></h3>
 <p>We introduce a <code class="docutils literal notranslate"><span class="pre">length</span></code> type and several keywords to express lengths of time.
 Lengths are positive numbers with a unit of time. <code class="docutils literal notranslate"><span class="pre">ns,</span> <span class="pre">μs,</span> <span class="pre">ms,</span> <span class="pre">s</span></code> are used for SI time
@@ -272,8 +273,8 @@ another part of the program or the duration of a calibrated gate.</p>
 <span class="n">length</span> <span class="n">thousand_cycles</span> <span class="o">=</span> <span class="mi">1000</span><span class="n">dt</span><span class="p">;</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="stretch">
+</section>
+<section id="stretch">
 <h3>stretch<a class="headerlink" href="#stretch" title="Permalink to this headline">¶</a></h3>
 <p>We further introduce a <code class="docutils literal notranslate"><span class="pre">stretch</span></code> type which is a sub-type of <code class="docutils literal notranslate"><span class="pre">length</span></code>. Stretchable lengths
 have variable non-negative length that is permitted to grow as necessary
@@ -284,9 +285,9 @@ is an integer between 0 to 255. <code class="docutils literal notranslate"><span
 timing resolution stage of the compiler, higher order stretches will
 suppress lower order stretches whenever they appear in the same scope on
 the same qubits.</p>
-</div>
-</div>
-<div class="section" id="aliasing">
+</section>
+</section>
+<section id="aliasing">
 <h2>Aliasing<a class="headerlink" href="#aliasing" title="Permalink to this headline">¶</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">let</span></code> keyword allows quantum bits and registers to be referred to by
 another name as long as the alias is in scope.</p>
@@ -295,8 +296,8 @@ another name as long as the alias is in scope.</p>
 <span class="n">let</span> <span class="n">myreg</span> <span class="o">=</span> <span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="o">:</span><span class="mi">4</span><span class="p">];</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="register-concatenation-and-slicing">
+</section>
+<section id="register-concatenation-and-slicing">
 <h2>Register concatenation and slicing<a class="headerlink" href="#register-concatenation-and-slicing" title="Permalink to this headline">¶</a></h2>
 <p>Two or more registers of the same type (i.e. classical or quantum) can
 be concatenated to form a register of the same type whose size is the
@@ -339,8 +340,8 @@ variables whose values may only be known at run time.</p>
 <span class="n">let</span> <span class="n">both</span> <span class="o">=</span> <span class="n">sliced</span> <span class="o">||</span> <span class="n">last_three</span><span class="p">;</span>
 </pre></div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
           </div>
@@ -422,7 +423,7 @@ variables whose values may only be known at run time.</p>
       &copy;2017-2020, Andrew W. Cross, Lev S. Bishop, John A. Smolin, Jay M. Gambetta.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.5.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.5.3</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

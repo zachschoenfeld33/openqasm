@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
     <title>Classical instructions &#8212; OpenQASM Live Specification  documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
@@ -33,7 +34,7 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="classical-instructions">
+  <section id="classical-instructions">
 <h1>Classical instructions<a class="headerlink" href="#classical-instructions" title="Permalink to this headline">¶</a></h1>
 <p>We envision two levels of classical control that we call low-level
 instructions and high-level kernel functions. Simple, fast instructions
@@ -47,9 +48,9 @@ and from higher-level processors. The kernel functions run on the global
 processor concurrently with operations on the local processors, if
 possible. Kernel functions can write to the global controller’s memory,
 which may not be directly accessible by the local controllers.</p>
-<div class="section" id="low-level-classical-instructions">
+<section id="low-level-classical-instructions">
 <h2>Low-level classical instructions<a class="headerlink" href="#low-level-classical-instructions" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="generalities">
+<section id="generalities">
 <h3>Generalities<a class="headerlink" href="#generalities" title="Permalink to this headline">¶</a></h3>
 <p>All types support the assignment operator <code class="docutils literal notranslate"><span class="pre">=</span></code>. The left-hand-side (LHS) and
 right-hand-side (RHS) of the assignment operator must be of the same
@@ -64,8 +65,8 @@ assigned variable on the LHS.</p>
 <span class="n">a</span> <span class="o">==</span> <span class="mi">10</span><span class="p">;</span> <span class="c1">// True</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="classical-bits-and-registers">
+</section>
+<section id="classical-bits-and-registers">
 <h3>Classical bits and registers<a class="headerlink" href="#classical-bits-and-registers" title="Permalink to this headline">¶</a></h3>
 <p>Classical registers and bits support bitwise operators and the
 corresponding assignment operators between registers of the same size:
@@ -82,8 +83,8 @@ right circular shift, <code class="docutils literal notranslate"><span class="pr
 <span class="n">a</span> <span class="o">&amp;</span> <span class="n">b</span><span class="p">;</span> <span class="c1">// Produces &quot;00000000&quot;</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="comparison-boolean-instructions">
+</section>
+<section id="comparison-boolean-instructions">
 <h3>Comparison (Boolean) Instructions<a class="headerlink" href="#comparison-boolean-instructions" title="Permalink to this headline">¶</a></h3>
 <p>Integers, fixed-point numbers, angles, bits, and classical registers can
 be compared (<span class="math notranslate nohighlight">\(&gt;\)</span>, <span class="math notranslate nohighlight">\(&gt;=\)</span>, <span class="math notranslate nohighlight">\(&lt;\)</span>, <span class="math notranslate nohighlight">\(&lt;=\)</span>, <span class="math notranslate nohighlight">\(==\)</span>,
@@ -104,8 +105,8 @@ an index set, for example <code class="docutils literal notranslate"><span class
 <span class="n">e</span> <span class="o">==</span> <span class="kt">float</span><span class="p">(</span><span class="n">d</span><span class="p">);</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="integers">
+</section>
+<section id="integers">
 <h3>Integers<a class="headerlink" href="#integers" title="Permalink to this headline">¶</a></h3>
 <p>Integer types support addition <code class="docutils literal notranslate"><span class="pre">+</span></code>, subtraction <code class="docutils literal notranslate"><span class="pre">-</span></code>, multiplication <code class="docutils literal notranslate"><span class="pre">*</span></code>, and integer
 division <a class="footnote-reference brackets" href="#id5" id="id2">2</a> <code class="docutils literal notranslate"><span class="pre">/</span></code>; the corresponding assignments <code class="docutils literal notranslate"><span class="pre">+=</span></code>, <code class="docutils literal notranslate"><span class="pre">-=</span></code>, <code class="docutils literal notranslate"><span class="pre">*=</span></code>, and <code class="docutils literal notranslate"><span class="pre">/=</span></code>; as well as
@@ -119,8 +120,8 @@ increment <code class="docutils literal notranslate"><span class="pre">++</span>
 <span class="n">a</span><span class="o">++</span><span class="p">;</span> <span class="c1">// a == 7</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="fixed-point-numbers-and-angles">
+</section>
+<section id="fixed-point-numbers-and-angles">
 <h3>Fixed-point numbers and angles<a class="headerlink" href="#fixed-point-numbers-and-angles" title="Permalink to this headline">¶</a></h3>
 <p>Fixed-point and angle types support addition, subtraction,
 multiplication, and division and the corresponding assignment operators.</p>
@@ -131,8 +132,8 @@ multiplication, and division and the corresponding assignment operators.</p>
 <span class="n">c</span> <span class="o">=</span> <span class="n">angle</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">);</span> <span class="c1">// cast to angle[10]</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="looping-and-branching">
+</section>
+<section id="looping-and-branching">
 <h3>Looping and branching<a class="headerlink" href="#looping-and-branching" title="Permalink to this headline">¶</a></h3>
 <p>The statement <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">(</span> <span class="pre">bool</span> <span class="pre">)</span> <span class="pre">{</span> <span class="pre">program</span> <span class="pre">}</span></code> branches to program if the Boolean evaluates to true and
 may optionally be followed by <code class="docutils literal notranslate"><span class="pre">else</span> <span class="pre">{</span> <span class="pre">program</span> <span class="pre">}</span></code>.</p>
@@ -206,9 +207,9 @@ preceding, <code class="docutils literal notranslate"><span class="pre">{</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="kernel-function-calls">
+</section>
+</section>
+<section id="kernel-function-calls">
 <h2>Kernel function calls<a class="headerlink" href="#kernel-function-calls" title="Permalink to this headline">¶</a></h2>
 <p>Kernel functions are declared by giving their signature using the
 statement <code class="docutils literal notranslate"><span class="pre">kernel</span> <span class="pre">name(inputs)</span> <span class="pre">-&gt;</span> <span class="pre">output;</span></code> where <code class="docutils literal notranslate"><span class="pre">inputs</span></code> is a comma-separated list of type names and
@@ -240,8 +241,8 @@ do not discuss implementation details here, but one possibility is to
 compile into target code that imposes iteration limits</p>
 </dd>
 </dl>
-</div>
-</div>
+</section>
+</section>
 
 
           </div>
@@ -320,7 +321,7 @@ compile into target code that imposes iteration limits</p>
       &copy;2017-2020, Andrew W. Cross, Lev S. Bishop, John A. Smolin, Jay M. Gambetta.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.5.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.5.3</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
